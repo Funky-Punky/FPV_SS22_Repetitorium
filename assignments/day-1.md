@@ -36,7 +36,7 @@ val partition : ('a -> bool) -> 'a list -> 'a list * 'a list
 2. Implement a the list functions from above, but this time for BSTs. Implement them directly, i.e. do not convert the tree to a list first using inorder and then recycle the list functions and do not recycle any other functions or code you have written (Again, this is only for practice purposes. In a real-world scenario, you would want to recycle as much code as possible!)
 
 ```ocaml
-type bst = Leaf | Node of int bst * int * int bst
+type bst = Leaf | Node of bst * int * bst
 
 val insert : int -> bst -> bst
 val contains : int -> bst -> bool
