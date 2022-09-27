@@ -36,12 +36,10 @@ type 'a inf_list = Cons of 'a * (unit -> 'a inf_list)
    3. map - like normal map, but compatible with infinite lists
    4. filter - same
    5. Two other functions from the List module that you deem suitable. Make sure they make sense for infinite lists before starting yor implementation!
-2. Implement a `'a lazy` type in order to provide certain utility functions for lazy evaluation.
-   1. Implement a `val get : 'a lazy -> 'a` function which gets the value from the lazy. Make sure the computation result can be cached
-   2. Implement map
-   3. Implement bind. Bind is like map, but the mapping function returns a new lazy that is then used instead of a plain value that must then be wrapped in a lazy by map
-   4. Implement `is_present` to see if the lazy has already been evaluated
-   5. Implement combine, which takes to lazies and combines them to a lazy of the tuple of their results
+2. Implement utility functions for lazily evaluated methods (i.e. `unit -> 'a` functions)
+   1. Implement map
+   2. Implement bind. Bind is like map, but the mapping function returns a new lazy that is then used instead of a plain value that must then be wrapped in a lazy by map
+   3. Implement combine, which takes to lazies and combines them to a lazy of the tuple of their results
 
 ## Tail recursion
 1. Pull the newest version of the repository and check out our recursive list functions. Make them all tail-recursive
