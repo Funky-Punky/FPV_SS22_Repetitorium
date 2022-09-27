@@ -30,6 +30,7 @@ let sum = failwith "TODO: Compute the sum of all elements in the list"
    1. Implement map
    2. Implement bind. Bind is like map, but the mapping function returns a new lazy that is then used instead of a plain value that must then be wrapped in a lazy by map
    3. Implement `is_present` to see if the lazy has already been evaluated
+   4. Implement combine, which takes to lazies and combines them to a lazy of the tuple of their results
 
 ## Tail recursion
 1. Pull the newest version of the repository and check out our recursive list functions. Make them all tail-recursive
