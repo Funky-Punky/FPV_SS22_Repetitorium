@@ -15,11 +15,22 @@ let sum = failwith "TODO: Compute the sum of all elements in the list"
 
 1. Figure out what `||>` (see definition below) does and why it could be useful in combination with partial evaluation. Come up with three examples where it is helpful.
    ```ocaml
-   let (||>) f g x = f x |> g
+   let (||>) f g = fun x -> g (f x)
+   let (|||>) f g = fun x y -> g (f x y)
+   (float_of_int ||> string_of_float ) 1
+   1 |> float_of_int |> string_of_float
+   (||>) float_of_int string_of_float 1
+   let string_of_int = float_of_int ||> string_of_float
+   let double_of_squares =
+      (fun x -> x * x) ||> ( * ) 2
    ```
 2. Implement the following function without explicitly accepting all the arguments. You may change the order of the arguments, if it seems helpful. However, make sure to not change the return type! `val pipe_many : 'a -> ('a -> 'a) list -> 'a`
 
 ## Lazy evaluation
+```ocaml
+type 'a inf_list = Nil | Cons of 'a * (unit -> 'a inf_list)
+'a list
+```
 1. After we discuss a suitable type for infinite lists in class, implement these functions
    1. integers - creates an infinite list of ascending intevers starting at some n
    2. take - takes the first n elements out of an infinite lists and puts them into a normal list
