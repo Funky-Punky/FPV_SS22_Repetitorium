@@ -55,3 +55,8 @@ val fold_left : ('a -> int -> 'a) -> 'a -> bst -> 'a
 val filter : (int -> bool) -> bst -> bst
 val partition : (int -> bool) -> bst -> bst * bst
 ```
+
+acc: 0 | list: [1; 2; 3; 4; 5] | operation: sum
+acc: 1 | processed: 1 | list: [2; 3; 4; 5] | operation: sum
+acc: 3 | processed: 1, 2 | list: [3; 4; 5] | operation: sum
+acc: 6 | processed: 1, 2, 3 | list: [4; 5] | operation: sum
