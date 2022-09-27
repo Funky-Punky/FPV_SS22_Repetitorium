@@ -28,20 +28,20 @@ let sum = failwith "TODO: Compute the sum of all elements in the list"
 
 ## Lazy evaluation
 ```ocaml
-type 'a inf_list = Nil | Cons of 'a * (unit -> 'a inf_list)
-'a list
+type 'a inf_list = Cons of 'a * (unit -> 'a inf_list)
 ```
 1. After we discuss a suitable type for infinite lists in class, implement these functions
-   1. integers - creates an infinite list of ascending intevers starting at some n
+   1. integers - creates an infinite list of ascending integers starting at some n
    2. take - takes the first n elements out of an infinite lists and puts them into a normal list
    3. map - like normal map, but compatible with infinite lists
    4. filter - same
    5. Two other functions from the List module that you deem suitable. Make sure they make sense for infinite lists before starting yor implementation!
 2. Implement a `'a lazy` type in order to provide certain utility functions for lazy evaluation. Ensure its value is only evaluated once!
-   1. Implement map
-   2. Implement bind. Bind is like map, but the mapping function returns a new lazy that is then used instead of a plain value that must then be wrapped in a lazy by map
-   3. Implement `is_present` to see if the lazy has already been evaluated
-   4. Implement combine, which takes to lazies and combines them to a lazy of the tuple of their results
+   1. Implement a `val get : 'a lazy -> 'a` function which gets the value from the lazy. Make sure the computation is only performed once!
+   2. Implement map
+   3. Implement bind. Bind is like map, but the mapping function returns a new lazy that is then used instead of a plain value that must then be wrapped in a lazy by map
+   4. Implement `is_present` to see if the lazy has already been evaluated
+   5. Implement combine, which takes to lazies and combines them to a lazy of the tuple of their results
 
 ## Tail recursion
 1. Pull the newest version of the repository and check out our recursive list functions. Make them all tail-recursive
