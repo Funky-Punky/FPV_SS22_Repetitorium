@@ -27,18 +27,83 @@ let rec delete n = function
         let new_v = get_max l in
         Node (delete new_v l, new_v, r)
 
-let rec height = function
-  | Leaf -> 0
-  | Node (l, _, r) -> 1 + Int.max (height l) (height r)
+let height tree =
+  let rec impl curr_node curr_max curr_height stack =
+    match curr_node with
+    | Leaf -> (
+        match stack with
+        | [] -> curr_max
+        | (x, h) :: stack -> impl x curr_max h stack)
+    | Node (l, _, r) ->
+        impl l
+          (Int.max (curr_height + 1) curr_max)
+          (curr_height + 1)
+          ((r, curr_height + 1) :: stack)
+  in
+  impl tree 0 0 []
 
-let inorder _ = failwith "TODO"
-let preorder _ = failwith "TODO"
-let postorder _ = failwith "TODO"
-let mirror _ = failwith "TODO"
-let length _ = failwith "TODO"
-let sum _ = failwith "TODO"
-let prod _ = failwith "TODO"
-let map _ = failwith "TODO"
-let fold_left _ = failwith "TODO"
-let filter _ = failwith "TODO"
-let partition _ = failwith "TODO"
+let rec inorder = function
+  | Leaf -> []
+  | Node (l, v, r) -> inorder l @ [ v ] @ inorder r
+
+let rec preorder = function
+  | Leaf -> []
+  | Node (l, v, r) -> [ v ] @ preorder l @ preorder r
+
+let rec postorder = function
+  | Leaf -> []
+  | Node (l, v, r) -> postorder l @ postorder r @ [ v ]
+
+let rec mirror = function
+  | Leaf -> Leaf
+  | Node (l, v, r) -> Node (mirror r, v, mirror l)
+
+let rec length = function
+  | Leaf -> 0
+  | Node (l, _, r) -> 1 + length l + length r
+
+let sum t =
+  let rec aux acc todo =
+    match todo with
+    | [] -> acc
+    | x :: xs -> (
+        match x with
+        | Leaf -> aux acc xs
+        | Node (l, v, r) -> aux (acc + v) (l :: r :: xs))
+  in
+  aux 0 [ t ]
+
+let rec prod = function Leaf -> 1 | Node (l, v, r) -> v * prod l * prod r
+
+let rec map f = function
+  | Leaf -> Leaf
+  | Node (l, v, r) -> Node (map f l, f v, map f r)
+
+let rec fold_left f acc = function
+  | Leaf -> acc
+  | Node (l, v, r) ->
+      let left_acc = fold_left f acc l in
+      let curr_acc = f left_acc v in
+      fold_left f curr_acc r
+
+let filter p =
+  let rec impl acc = function
+    | Leaf -> acc
+    | Node (l, v, r) ->
+        let curr_filtered = if p v then insert v acc else acc in
+        let left_filtered = impl curr_filtered l in
+        impl left_filtered r
+  in
+  impl Leaf
+
+let partition p =
+  let rec impl (yes, no) = function
+    | Leaf -> (yes, no)
+    | Node (l, v, r) ->
+        let curr_filtered =
+          if p v then (insert v yes, no) else (yes, insert v no)
+        in
+        let left_filtered = impl curr_filtered l in
+        impl left_filtered r
+  in
+  impl (Leaf, Leaf)
