@@ -1,0 +1,4 @@
+(library
+ (name libCommon)
+ (flags
+  (:standard -warn-error -27-33)))
