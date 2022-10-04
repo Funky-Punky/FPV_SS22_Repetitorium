@@ -1,8 +1,6 @@
 open Event
 (* open Thread *)
 
-
-
 (* Error handling *)
 
 (*
@@ -58,9 +56,9 @@ let res s = try Ok (int_of_string s) with Failure msg -> Error (Failure msg)
     -...
 *)
 
-(* 
-   If a expression evaluates to an unit, you can drop this unit, by adding an ";".
-   The line of Code is executed, the result (unit) is thrown away (what would you want to do with it anyways) and the next line is evaluated.
+(*
+    If a expression evaluates to an unit, you can drop this unit, by adding an ";".
+    The line of Code is executed, the result (unit) is thrown away (what would you want to do with it anyways) and the next line is evaluated.
 *)
 
 let talkative_add a b =
@@ -72,8 +70,8 @@ let talkative_add a b =
   print_endline "Bon Appétit:";
   sum
 
-(* 
-    example for a function, that uses unit. Look at the signature for List.iter
+(*
+     example for a function, that uses unit. Look at the signature for List.iter
 *)
 
 let () = List.iter (fun x -> print_endline (string_of_int x)) [ 1; 2; 3; 4 ]
@@ -127,7 +125,6 @@ let (), () =
       (* removes the given file from the file system *)
 *)
 
-
 (* TASK: Do the IntListDatabase assignment, then continue here *)
 
 (*
@@ -161,11 +158,52 @@ let (), () =
 
 (* Thread-Safe Server *)
 
+(*
+
+Lets analyze this preset:
+
+First the type server_request: Well these are the kinds of requests we can send to the server
+
+Now the start_server function:
+      First we create a channel. Notice that in the last line this channel is returned. Why is that? What happens in this function, 
+        is that we first create a request channel and then we create a Thread, that "listenes" on this channel for eternity. 
+        If another Thread wants to interact with out server it has to send a request through said channel. 
+        If we execute the start_server function, what we get is a handle to the server. And thats really all we need
+
+      Then we create a helper function. This is the function the serverThread will execute up until eternity. That is why it needs to be tail recursive.
+        This function first recieves a request out of the channel we created. It then handles the request and starts a new recursion.
+        Now what about the parameter of the helper function: If our server needs to store some data, it can do so by altering said parameter for the next recursion.
+        The next iteration will reach the recieve call and wait for a new request. And because our server spends all his time in the loop, the value is never dropped,
+      
+      Now the actual thread is created. The function it should execute is of course the helper function and the argument it the initial state for our server.
+        Note that the thread_handle returned by Thread.create is dropped and forgotten. We dont need it, because we will use the channel to talk to out server.
+
+      aaaaand the channel from the beginning is returned and we are finished.
+
+The req1 and req2 functions:
+    Those are gonna be executed by the Thread, that requests someting from us.
+    They take a "server" (which is only the handle to the serverthread and a channel) and all the arguments they need.
+    Then they send a request through the channel where the server is waiting.
+
+What if the server needs to return something? 
+    The sollution is a bit complicated: The communication must happen over channels right?
+    So the requester creates a channel and sends this channel together with his request through the server channel
+    The Server then can use this second channel to send his answer through.
+    
+    In the server_request type this looks like this:
+
+    type server_request = 
+              | Set of (int * int)          <- index * value
+              | Get of (int * int channel)  <- index * return-channel
+
+
+*)
+
 type server_request = Req1 of int | Req2
 
 let start_server () =
   let channel = Event.new_channel () in
-  let help thread_state =
+  let help server_state =
     match sync (receive channel) with
     | Req1 _ -> failwith "Handle this Request and then tail recursion"
     | Req2 -> failwith "Handle this Request and then tail recursion"
@@ -175,6 +213,10 @@ let start_server () =
 
 let req1 server arg = sync (send server (Req1 arg))
 let req2 server = sync (send server Req2)
+
+(*
+    This is a Example for a module type Map and a Thread safe implementation.
+*)
 
 module type Map = sig
   type ('k, 'v) t
@@ -188,32 +230,29 @@ end
 
 type ('k, 'v) request = Put of ('k * 'v) | Get of ('k * 'v option channel)
 
-(* module MyMap :
-     Map
-       with type 'a key = 'a
-        and type 'v value = 'v = struct
-     type ('k, 'v) t = ('k, 'v) request channel
-     type 'k key = 'k
-     type 'v value = 'v
+module MyMap : Map with type 'a key = 'a and type 'v value = 'v = struct
+  type ('k, 'v) t = ('k, 'v) request channel
+  type 'k key = 'k
+  type 'v value = 'v
 
-     let create_map () =
-       let channel = Event.new_channel () in
-       let rec help assoq_list =
-         match sync (receive channel) with
-         | Put (key, value) ->
-             help ((key, value) :: List.remove_assoc key assoq_list)
-         | Get (key, retchan) ->
-             let value = List.assoc_opt key assoq_list in
-             sync (send retchan value);
-             help assoq_list
-       in
-       let _ = Thread.create help [] in
-       channel
+  let create_map () =
+    let channel = Event.new_channel () in
+    let rec help assoq_list =
+      match sync (receive channel) with
+      | Put (key, value) ->
+          help ((key, value) :: List.remove_assoc key assoq_list)
+      | Get (key, retchan) ->
+          let value = List.assoc_opt key assoq_list in
+          sync (send retchan value);
+          help assoq_list
+    in
+    let _ = Thread.create help [] in
+    channel
 
-     let put map key value = sync (send map (Put (key, value)))
+  let put map key value = sync (send map (Put (key, value)))
 
-     let get map key =
-       let channel = Event.new_channel () in
-       sync (send map (Get (key, channel)));
-       sync (receive channel)
-   end *)
+  let get map key =
+    let channel = Event.new_channel () in
+    sync (send map (Get (key, channel)));
+    sync (receive channel)
+end
