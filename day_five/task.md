@@ -1,0 +1,19 @@
+# Implications, Assertions, Pre- and PostConditions
+1. Do the Artemis quiz on Implications: https://artemis.ase.in.tum.de/courses/216/exercises/7862
+2. Do the Artemis tutorial excercises [w01t03](https://artemis.ase.in.tum.de/courses/189/exercises6741) and [w01t03](https://artemis.ase.in.tum.de/courses/189/exercises/6742). This should be the same Stuff Michael has already told you about
+3. Do the task for Strongest Postconditions in the Repo
+4. Do the task for Weakest Preconditions in the Repo
+5. Do the task with the three small graphs in the Repo
+6. Do the task for Local consistency in the Repo
+
+# Loop Invariants
+
+1. Do the task loop_invariants_intro
+2. Do the task simple_sum in the Repo
+3. Do the task double_power in the Repo
+4. Do the task power_sum in the Repo
+5. Do the task the_first_strengthening in the Repo
+6. Do the task the_second_strengthening in the Repo
+7. Do the Artemis Suplemental Excercise [w04s01](https://artemis.ase.in.tum.de/courses/189/exercises/6892)
+
+(I will add more exercises here tomorrow)
