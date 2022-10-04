@@ -20,11 +20,24 @@ let (), () =
 
 (* Error handling *)
 
+(*
+   the Syntax for try .. with ...  is:
+
+   try
+     ...             <- the expression you want to evaluate
+   with
+     | ... -> ...    <- a pattern matching over the exceptions you want to catch
+     | ... -> ...
+*)
+
 let divide a b = try a / b with Division_by_zero -> -1
 let infinity = divide 1 0
 
+(* You can define custom exceptions like so: *)
+
 exception Invalid_Age of string
 
+(* Use the raise keyword to raise exceptions *)
 let age_of_string s =
   let i =
     try int_of_string s
@@ -34,13 +47,36 @@ let age_of_string s =
   else if i > 900 then raise (Invalid_Age "No one can be that old")
   else i
 
+(* failwith ist just this: (this is taken from Ocaml Libraries) *)
 let failwith msg = raise (Failure msg)
+
+(*
+   the Type "result" as a possibility to return an error as a value
+     Its like an Option, but more advanced.
+*)
 
 type ('a, 'e) t = ('a, 'e) result = Ok of 'a | Error of 'e
 
 let res s = try Ok (int_of_string s) with Failure msg -> Error (Failure msg)
 
 (* Unit Chaining *)
+
+(*
+  Unit is a datatype, that only has one value.
+  Imagine it like this: int is a type, that can assume the values 0, 5, 222, -10 and so on
+                        unit is a type, that can assume the values ()    <- open and closed brackets
+
+  It is usefull, for a few things:
+    -specifiing, that a function doesnt have a return parameter
+    -creating a function, that doesnt have an input parameter
+    -wrapping functions, so they can be evaluated layzily later
+    -...
+*)
+
+(* 
+   If a expression evaluates to an unit, you can drop this unit, by adding an ";".
+   The line of Code is executed, the result (unit) is thrown away (what would you want to do with it anyways) and the next line is evaluated.
+*)
 
 let talkative_add a b =
   print_endline "Hi, my Name is Addy";
@@ -51,6 +87,9 @@ let talkative_add a b =
   print_endline "Bon Appétit:";
   sum
 
+(* 
+    example for a function, that uses unit. Look at the signature for List.iter
+ *)
 let () = List.iter (fun x -> print_endline (string_of_int x)) [ 1; 2; 3; 4 ]
 
 (* Jonas' File Handling API *)
@@ -77,7 +116,16 @@ let () = List.iter (fun x -> print_endline (string_of_int x)) [ 1; 2; 3; 4 ]
   Reading:
     input_line : in_channel -> string
     String.split_on_char : char -> string -> string list
+
+  Misc:
+    Sys.getcwd () 
+      (* returns the current working directory as a String *)
+    Sys.remove <filepath>
+      (* removes the given file from the file system *)
 *)
+
+
+(* TASK: Do the IntListDatabase assignment, then continue here *)
 
 (*
    Threads:
@@ -90,8 +138,9 @@ let () = List.iter (fun x -> print_endline (string_of_int x)) [ 1; 2; 3; 4 ]
    Thread.id : t -> int
 
 
-
    Channel:
+
+
 
    Event.new_channel : unit -> 'a channel
 
@@ -107,15 +156,14 @@ let start_server () =
   let channel = Event.new_channel () in
   let help thread_state =
     match sync (receive channel) with
-    | Req1 _ ->
-        failwith "Handle this Request and then tail recursion"
-    | Req2 ->
-        failwith "Handle this Request and then tail recursion"
+    | Req1 _ -> failwith "Handle this Request and then tail recursion"
+    | Req2 -> failwith "Handle this Request and then tail recursion"
   in
   let _ = Thread.create help [] in
   channel
 
-let req1 chan arg = sync (send chan (Req1 arg))
+let req1 server arg = sync (send server (Req1 arg))
+let req2 server = sync (send server Req2)
 
 module type Map = sig
   type ('k, 'v) t
