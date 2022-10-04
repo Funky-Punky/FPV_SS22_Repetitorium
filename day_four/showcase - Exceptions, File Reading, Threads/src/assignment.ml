@@ -1,22 +1,7 @@
 open Event
 (* open Thread *)
 
-(* Side Effects *)
 
-let (), () =
-  let x = print_endline "foo" in
-  (x, x)
-
-let (), () =
-  let x () = print_endline "foo" in
-  (x (), x ())
-
-(*
-     1. What are side-effects? Give some examples.
-     2. What are pure functions? What are their benefits?
-     3. Why does delaying evaluation only make sense in case of side-effects or in presence of non-terminating expressions?
-     4. Why do we want to use () instead of some unused variable or the discard _?
-*)
 
 (* Error handling *)
 
@@ -89,8 +74,26 @@ let talkative_add a b =
 
 (* 
     example for a function, that uses unit. Look at the signature for List.iter
- *)
+*)
+
 let () = List.iter (fun x -> print_endline (string_of_int x)) [ 1; 2; 3; 4 ]
+
+(* Side Effects *)
+
+let (), () =
+  let x = print_endline "foo" in
+  (x, x)
+
+let (), () =
+  let x () = print_endline "foo" in
+  (x (), x ())
+
+(*
+     1. What are side-effects? Give some examples.
+     2. What are pure functions? What are their benefits?
+     3. Why does delaying evaluation only make sense in case of side-effects or in presence of non-terminating expressions?
+     4. Why do we want to use () instead of some unused variable or the discard _?
+*)
 
 (* Jonas' File Handling API *)
 
@@ -132,14 +135,22 @@ let () = List.iter (fun x -> print_endline (string_of_int x)) [ 1; 2; 3; 4 ]
 
    type t
 
-   Thread.create : ('a -> 'b) -> 'a -> t
-   Thread.join : t -> unit
-   Thread.self : unit -> t
-   Thread.id : t -> int
+   Thread.create : ('a -> 'b) -> 'a -> t      (* creates a thread, that executes the given function with the given argument. Returns a handle to the created Thread *)
+   Thread.join : t -> unit                    (* the Thread that executes this function is blocked until the Thread t has halted, *)
+   Thread.self : unit -> t                    (* returns the executing thread *)
+   Thread.id : t -> int                       (* return the id of a given thread *)
 
 
    Channel:
 
+   About Channels:
+    Channels are a method, by which threads can communicate with each other. They are Bidirectional, so elements can be sent both ways.
+    Note that a channel has a polymorohic type, so there can be a thing such as a "int option list channel"
+    It has two important functions:
+      1. Recieving: sync(recieve <chan>)   The recieve function blocks execution until some other thread has given some value to the thread. It returns said value
+      2. Sending: sync(send <chan> <val>)  Send sends the given value into the given Channel. 
+         IMPORTANT: It is a little unintuitive, but the Ocaml channel implementation doesnt have some kind of buffer to store sent, but not yet recieved elements.
+                    Send also blocks execution until some other thread has recieved the sent element.
 
 
    Event.new_channel : unit -> 'a channel
