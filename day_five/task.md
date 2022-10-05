@@ -1,6 +1,6 @@
 # Implications, Assertions, Pre- and PostConditions
 1. Do the Artemis quiz on Implications: https://artemis.ase.in.tum.de/courses/216/exercises/7862
-2. Do the Artemis tutorial excercises [w01t03](https://artemis.ase.in.tum.de/courses/189/exercises6741) and [w01t03](https://artemis.ase.in.tum.de/courses/189/exercises/6742). This should be the same Stuff Michael has already told you about
+2. Do the Artemis tutorial excercises [w01t02](https://artemis.ase.in.tum.de/courses/189/exercises6741) and [w01t03](https://artemis.ase.in.tum.de/courses/189/exercises/6742). This should be the same Stuff Michael has already told you about
 3. Do the task for Strongest Postconditions in the Repo
 4. Do the task for Weakest Preconditions in the Repo
 5. Do the task with the three small graphs in the Repo
