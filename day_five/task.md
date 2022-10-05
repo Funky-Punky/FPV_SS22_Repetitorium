@@ -9,11 +9,12 @@
 # Loop Invariants
 
 1. Do the task loop_invariants_intro
-2. Do the task simple_sum in the Repo
-3. Do the task double_power in the Repo
-4. Do the task power_sum in the Repo
-5. Do the task the_first_strengthening in the Repo
-6. Do the task the_second_strengthening in the Repo
-7. Do the Artemis Suplemental Excercise [w04s01](https://artemis.ase.in.tum.de/courses/189/exercises/6892)
+2. Do the task faculty in the Repo
+3. Do the task simple_sum in the Repo
+4. Do the task double_power in the Repo
+5. Do the task power_sum in the Repo
+6. Do the task the_first_strengthening in the Repo
+7. Do the task the_second_strengthening in the Repo
+8. Do the Artemis Suplemental Excercise [w04s01](https://artemis.ase.in.tum.de/courses/189/exercises/6892)
 
 (I will add more exercises here tomorrow)
