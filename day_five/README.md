@@ -17,4 +17,13 @@
 7. Do the task the_second_strengthening in the Repo
 8. Do the Artemis Suplemental Excercise [w04s01](https://artemis.ase.in.tum.de/courses/189/exercises/6892)
 
-(I will add more exercises here tomorrow)
+If you want to do more Loop Invariants, there are some in the subDirectory.
+
+# Termination
+
+1. Do the task closer_to_zero in the Repo
+2. Do the task what_about_b in the Repo
+3. Do the task step_into_the_k-loop in the Repo
+4. Do the Artemis Supplemental exercise [w04s02](https://artemis.ase.in.tum.de/courses/189/exercises/6893)
+   
+If you want to do more Termination proofs, there are some in the subDirectory.
