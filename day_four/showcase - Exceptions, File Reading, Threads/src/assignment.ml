@@ -199,6 +199,8 @@ What if the server needs to return something?
 
 *)
 
+
+
 type server_request = Req1 of int | Req2
 
 let start_server () =
@@ -211,8 +213,19 @@ let start_server () =
   let _ = Thread.create help [] in
   channel
 
+
+
+
 let req1 server arg = sync (send server (Req1 arg))
 let req2 server = sync (send server Req2)
+
+
+
+
+
+
+
+
 
 (*
     This is a Example for a module type Map and a Thread safe implementation.
