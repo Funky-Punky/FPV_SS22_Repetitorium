@@ -1,0 +1,70 @@
+let rec fact n = match n with 0 -> 1
+  | n -> n * fact (n-1)
+
+
+let rec fact_aux acc n = match n with 0 -> acc
+  | n -> fact_aux (n*acc) (n-1)
+
+let fact_iter n = fact_aux 1 n
+
+To prove:
+        fact_iter n = fact n
+
+
+
+
+
+
+
+Generalized statement (*) (if necessary): fact_aux g n = g * fact n
+---
+
+
+Base Case:
+Statement being proven in base case: fact_aux g 0 = g * fact 0
+Proof of base case:
+
+
+            fact_aux g 0
+(fact_aux)  = match 0 with 0 -> g | n -> fact_aux (n*g) (n-1)
+(match)     = g
+
+(arith)     = g
+(match)     = g * 1
+(fact)      = g * match 0 with 0 -> 1 | n -> n * fact (n-1)
+            = g * fact 0
+
+
+---
+
+Inductive Step:
+Induction hypothesis (or hypotheses): fact_aux g n = g * fact n
+Statement being proved in inductive step: fact_aux g (n+1) = g * fact (n+1)
+Proof of inductive step:
+
+            fact_aux g (n+1)
+(fact_aux)  = match (n+1) with 0 -> g | n -> fact_aux (n*g) (n-1)
+(match)     = fact_aux ((n+1)*g) ((n+1)-1)
+(arith)     = fact_aux ((n+1)*g) n
+
+
+
+(I.H.)      = fact_aux ((n+1)*g) n
+(arith)     = ((n+1)*g) * fact n
+(match)     = g * (n+1) * fact ((n+1)-1)
+(fact)      = g * match (n+1) with 0 -> 1 | n -> n * fact (n-1)
+            = g * fact (n+1)
+
+
+
+
+---
+Instantiation of generalization (if necessary):
+
+            fact_iter n
+(fact_iter) = fact_aux 1 n
+(*)         = 1 * fact n
+(arith)     = fact n
+
+---
+QED

@@ -1,4 +1,4 @@
-# Equasional Reasoning
+# Equational Reasoning
 
 1. Do the first exercise on [Artemis](https://artemis.ase.in.tum.de/courses/189/exercises/7329) on Equasional Reasoning.
 2. Consider the following functions:
