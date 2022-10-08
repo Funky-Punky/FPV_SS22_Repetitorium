@@ -37,6 +37,9 @@ let rec map f l =
 
 let rec nlen n l =
   match l with [] -> 0 | h :: t -> n + nlen n t
+
+let rec len_tr acc l = 
+  match l with [] -> acc | _ :: t -> len_tr (acc + 1) t
 ```
 
 ## Tasks
@@ -44,16 +47,17 @@ Assume, that all expressions terminate.
 
 1. Do the first exercise on [Artemis](https://artemis.ase.in.tum.de/courses/189/exercises/7329) on Equational Reasoning. (We aleady did that together yesterday)
    
-2.  Show that the statement
-    ```ocaml
-    fold_left (fun acc _ -> acc + 1) 0 l   =   nlen 0 l
-    ```
-    holds for all Lists l.
-3. Show that the statement
+
+2. Show that the statement
     ```ocaml
     fold_right (fun e a -> g e :: a) l []   =   map g l
     ```
     holds for all Lists l and functions g.
+3.  Show that the statement
+    ```ocaml
+    fold_left (fun acc _ -> acc + 1) 0 l   =   len_tr 0 l
+    ```
+    holds for all Lists l.
 4. Show that the statement
     ```ocaml
     nlen n l   =   fold_left (+) 0 (map (fun _ -> n) l)
