@@ -1,4 +1,4 @@
-# Day 2
+# Fun(ctions)
 ## Partial Application
 ### Parameter order
 Try and write the desired function using the provided function as concisely as possible. Then, you may re-order the provided function's parameters and adapt your own implementations to (ideally) make them even more consise. What do you notice?
@@ -53,24 +53,4 @@ type 'a inf_list = Cons of 'a * (unit -> 'a inf_list)
 
    val dijkstra : graph -> edge list
    ```
-
-## Sub-expressions
-Find all sub-expressions of these expressions and determine their types. Also determine the type and value of the expressions 
-
-1. ```ocaml
-   (let foo = ("bar") in ((print_endline) (foo)))
-    ```
-2. ```ocaml
-   (((float_of_int) ((1) + (2))) *. (3.5))
-   ```
-3. ```ocaml
-   [2; 3] |> List.cons 1 |> List.map (( * ) 2) |> List.fold_left ( + ) 0
-   List.fold_left ( + ) 0 (List.map (( * ) 2) (List.cons 1 [2; 3]))
-   List.fold_left ( + ) 0 (List.map (( * ) 2) (List.cons 1 (2 :: 3 :: [])))
-    ```
-4. ```ocaml
-   let flip f a b = f b a in flip ( - ) 2 3
-    ```
-5. ```ocaml
-   let y a b c = a c b in List.map (y (@@) [2; 3; 4]) [List.cons 1; (@) [0; 4]]
-   ```
+4. Implement `sum` and `insert` tailrecursively for BSTs

@@ -1,4 +1,4 @@
-# Day 1
+# OCaml basics - Recursion and Folding
 ## Lists
 1. Implement the functions described by the interface below. Do **NOT** use the OCaml `List` module! Do not take any shortcuts, i.e. don't use functions you have already implemented and try to not even copy and paste code for similar functions. These are somewhat monotonous drills, but they will give you practice in dealing with lists!
   - length - takes a list and returns the amount of elements inside it
@@ -55,8 +55,3 @@ val fold_left : ('a -> int -> 'a) -> 'a -> bst -> 'a
 val filter : (int -> bool) -> bst -> bst
 val partition : (int -> bool) -> bst -> bst * bst
 ```
-
-acc: 0 | list: [1; 2; 3; 4; 5] | operation: sum
-acc: 1 | processed: 1 | list: [2; 3; 4; 5] | operation: sum
-acc: 3 | processed: 1, 2 | list: [3; 4; 5] | operation: sum
-acc: 6 | processed: 1, 2, 3 | list: [4; 5] | operation: sum
