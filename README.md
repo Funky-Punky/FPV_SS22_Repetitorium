@@ -7,5 +7,5 @@ Exercises and Notes or Showcases of some assignments can be found in the subdire
 
 Some Solutions as well... but now all of them - you still need to do some things yourself.
 
-Have Fun
+Have Fun\
 Michael and Jonas
