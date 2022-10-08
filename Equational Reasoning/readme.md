@@ -30,7 +30,7 @@ let rec fold_left f acc l =
   match l with [] -> acc | h :: t -> fold_left f (f acc h) t
 
 let rec fold_right f l acc =
-  match l with [] -> acc | t :: t -> f h (fold_right f t acc)
+  match l with [] -> acc | h :: t -> f h (fold_right f t acc)
 
 let rec map f l =
   match l with [] -> [] | h :: t -> f h :: map f t
