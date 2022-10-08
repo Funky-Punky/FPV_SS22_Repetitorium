@@ -1,0 +1,11 @@
+1.     see solution on Artemis
+        
+2.     fold_right (fun e a -> g e :: a) l []   =   map g l
+
+3.     fold_left (fun acc _ -> acc + 1) g l   =   len_tr g l
+
+4.     g + nlen n l   =   fold_left (+) g (map (fun _ -> n) l)
+
+5.     fold_left (+) g l   =  g + fold_right (+) l 0
+
+
