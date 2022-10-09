@@ -44,7 +44,7 @@
    ```
 7. Consider the following functions:
    ```ocaml
-   let rec fold_left f acc l =
+   let rec fold_left = fun f acc l ->
      match l with [] -> acc | h :: t -> fold_left f (f acc h) t
 
    let mul = fun a b ->
