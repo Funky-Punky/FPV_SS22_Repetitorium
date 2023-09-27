@@ -47,7 +47,7 @@ let rec eval (e : expr) : expr =
   match e with
   | Const i -> Const i
   | Tuple es -> Tuple (List.map eval es)
-  | List es -> List (List.map eval es)
+  | List es -> (match es with [] -> List [] | hd :: tl -> List (eval hd :: tl) )
   | Fun (x, e) -> Fun (x, e)
   | App (e1, e2) -> (
       match eval e1 with
@@ -98,7 +98,7 @@ let render_bigstep_tree (e : expr) =
             indent_str ^ "+ APP " ^ e_str ^ "\n"
             ^ indent_helper (indent + 2) e1
             ^ indent_helper (indent + 2) e2
-            ^ indent_helper (indent + 2) (substitude fe x e2)
+            ^ indent_helper (indent + 2) (substitude fe x (eval e2))
             ^ indent_str ^ "=> "
             ^ pp_expr (eval e)
             ^ "\n"

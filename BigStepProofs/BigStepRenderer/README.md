@@ -141,34 +141,10 @@ render_bigstep_tree complicated;;
           9 + 7 => 16
       => 16
     => 16
-    + OP ((fun x -> x * x + 7) 3) * ((fun x -> x * x + 7) 3) + 7
-      + OP ((fun x -> x * x + 7) 3) * ((fun x -> x * x + 7) 3)
-        + APP ((fun x -> x * x + 7) 3)
-            (fun x -> x * x + 7) => (fun x -> x * x + 7)
-            3 => 3
-          + OP 3 * 3 + 7
-            + OP 3 * 3
-                3 => 3
-                3 => 3
-                3 * 3 => 9
-            => 9
-              7 => 7
-              9 + 7 => 16
-          => 16
-        => 16
-        + APP ((fun x -> x * x + 7) 3)
-            (fun x -> x * x + 7) => (fun x -> x * x + 7)
-            3 => 3
-          + OP 3 * 3 + 7
-            + OP 3 * 3
-                3 => 3
-                3 => 3
-                3 * 3 => 9
-            => 9
-              7 => 7
-              9 + 7 => 16
-          => 16
-        => 16
+    + OP 16 * 16 + 7
+      + OP 16 * 16
+          16 => 16
+          16 => 16
           16 * 16 => 256
       => 256
         7 => 7
@@ -177,7 +153,7 @@ render_bigstep_tree complicated;;
   => 263
 => 263
 
-It spits out 263, which is the correct result. (The proof tree should hopefully also be correct, I am not going to check it though.)
+It spits out 263, which is the correct result.
 *)
 ```
 
