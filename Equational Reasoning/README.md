@@ -71,7 +71,7 @@ Assume, that all expressions terminate.
 
 1. Answer the following questions
     + How can we prove that two expressions evaluate to the same value for all inputs?
-    + Which proving-technique can we use to prove that a function behaves correctly for *all* possible inputs?
+    + Which proving-technique can we use to prove that a function behaves correctly for *all* possible inputs greater than 0?
     + What is generalization? When is it necessary?
     + Why do we need an instantiation step?
 

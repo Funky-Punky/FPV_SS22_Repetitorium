@@ -118,7 +118,7 @@
 ## Induction Proofs
 
 1. Answer the following questions:
-   + What proving-technique can we use to prove that a function behaves correctly for *all* possible inputs?
+   + What proving-technique can we use to prove that a function behaves correctly for *all* possible inputs greater than 0?
    + How can we show termination using this method?
 
 2. Do the second exercise on BigStepProofs on [w11t02](https://artemis.ase.in.tum.de/courses/253/exercises/10337)
