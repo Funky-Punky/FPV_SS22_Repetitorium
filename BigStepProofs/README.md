@@ -7,19 +7,19 @@
 
 ## Simple Evaluation
 
-1. Answer the following questions:
++  Answer the following questions:
    + How do you identify which rule to apply?
    + Why does recursion play such a big role in BigStep Semantics?
 
-2. Do The first exercise on BigStepProofs [w11t01](https://artemis.ase.in.tum.de/courses/253/exercises/10336)
+1. Do The first exercise on BigStepProofs [w11t01](https://artemis.ase.in.tum.de/courses/253/exercises/10336)
 
-3. Evaluate and prove the following expression:
+2. Evaluate and prove the following expression:
 
     ```ocaml
     let f = fun a -> 2+a*3 in 8 - f 1
     ```
 
-4. Consider the following functions:
+3. Consider the following functions:
 
     ```ocaml
     let fst = fun t -> match t with (a, b) -> a
@@ -32,13 +32,13 @@
     let x = (3+6, fun x -> x*4) in (snd x) (fst x)
     ```
 
-5. Evaluate and prove the following expression:
+4. Evaluate and prove the following expression:
 
     ```ocaml
     let x = 3+2 :: [] in match x with [n] -> (x, n+1)::[] | _ -> [([], 0)]
     ```
 
-6. Consider the following functions:
+5. Consider the following functions:
 
     ```ocaml
     let f = fun a b -> b [2] a
@@ -55,7 +55,7 @@
     f 6 g
     ```
 
-7. Consider the following function:
+6. Consider the following function:
 
     ```ocaml
     let rec rev = fun acc l ->
@@ -68,7 +68,7 @@
     rev [ ] [ 2; 8 ]
     ```
 
-8. Consider the following functions:
+7. Consider the following functions:
 
     ```ocaml
     let rec fold_left = fun f acc l ->
@@ -84,7 +84,7 @@
     fold_left mul 2 [10]
     ```
 
-9. Consider the following function:
+8. Consider the following function:
 
     ```ocaml
     let comp = fun f g x ->
@@ -97,7 +97,7 @@
     (let a = comp (fun x -> 2 * x) in a (fun x -> x + 3)) 4
    ```
 
-10. Consider the following functions:
+9.  Consider the following functions:
 
     ```ocaml
     let rec map f l =
