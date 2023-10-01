@@ -5,6 +5,7 @@ List.cons 1 (List.cons 2 (List.cons 3 []));;
 
 
 type color = Red | Green | Blue;;
+type 'a always = Always of 'a;;
 type nat = Zero | Suc of nat;;
 type pair = string * int;;
 type person = { name: string; age: int }
@@ -14,6 +15,7 @@ let michael = { name = "Michael"; age = 23 };;
 
 let (a, b) = michael_tuple;;
 let a = michael.name;;
+let Always the_value = Always 42;;
 
 match 1 :: [2; 3] with
 | [] -> failwith "THis should have never happened! Imma go cry"
