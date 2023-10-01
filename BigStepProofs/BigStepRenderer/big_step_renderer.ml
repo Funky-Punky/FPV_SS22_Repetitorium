@@ -47,7 +47,7 @@ let rec eval (e : expr) : expr =
   match e with
   | Const i -> Const i
   | Tuple es -> Tuple (List.map eval es)
-  | List es -> (match es with [] -> List [] | hd :: tl -> List (eval hd :: tl) )
+  | List es -> List (List.map eval es)
   | Fun (x, e) -> Fun (x, e)
   | App (e1, e2) -> (
       match eval e1 with
