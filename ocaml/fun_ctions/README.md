@@ -13,30 +13,21 @@ let sum = failwith "TODO: Compute the sum of all elements in the list"
 
 ### Random Exercises
 
-1. Figure out what `||>` (see definition below) does and why it could be useful in combination with partial evaluation. Come up with three examples where it is helpful.
+1. Figure out what `||>` and `|||>` (see definition below) does and why it could be useful in combination with partial evaluation. Come up with three examples where it is helpful.
    ```ocaml
    let (||>) f g = fun x -> g (f x)
    let (|||>) f g = fun x y -> g (f x y)
-   (float_of_int ||> string_of_float ) 1
-   1 |> float_of_int |> string_of_float
-   (||>) float_of_int string_of_float 1
-   let string_of_int = float_of_int ||> string_of_float
-   let double_of_squares =
-      (fun x -> x * x) ||> ( * ) 2
    ```
 2. Implement the following function without explicitly accepting all the arguments. You may change the order of the arguments, if it seems helpful. However, make sure to not change the return type! `val pipe_many : 'a -> ('a -> 'a) list -> 'a`
 
 ## Lazy evaluation
-```ocaml
-type 'a inf_list = Cons of 'a * (unit -> 'a inf_list)
-```
-1. After we discuss a suitable type for infinite lists in class, implement these functions
+1. After we discuss a suitable type for infinite lists in class, implement these functions in the corresponding folder (./lazy_evaluation)
    1. integers - creates an infinite list of ascending integers starting at some n
    2. take - takes the first n elements out of an infinite lists and puts them into a normal list
    3. map - like normal map, but compatible with infinite lists
    4. filter - same
    5. Two other functions from the List module that you deem suitable. Make sure they make sense for infinite lists before starting yor implementation!
-2. Implement utility functions for lazily evaluated methods (i.e. `unit -> 'a` functions)
+2. Implement utility functions for lazily evaluated values (i.e. `unit -> 'a` functions) in the corresponding folder (./lazy_evaluation)
    1. Implement map
    2. Implement bind. Bind is like map, but the mapping function returns a new lazy that is then used instead of a plain value that must then be wrapped in a lazy by map
    3. Implement combine, which takes to lazies and combines them to a lazy of the tuple of their results
