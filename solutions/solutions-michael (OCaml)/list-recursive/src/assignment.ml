@@ -13,7 +13,7 @@ let sum_int l =
 let rec sum_float = function [] -> 0. | x :: xs -> x +. sum_float xs
 let rec prod_int = function [] -> 1 | x :: xs -> x * prod_int xs
 
-let rec map f l =
+let map f l =
   let rec impl acc = function [] -> acc | x :: xs -> impl (f x :: acc) xs in
   impl [] (List.rev l)
 
