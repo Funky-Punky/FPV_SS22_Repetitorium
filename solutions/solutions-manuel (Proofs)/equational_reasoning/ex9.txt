@@ -1,0 +1,59 @@
+# To Proof: map (comp f g) l   =   comp (map f) (map g) l
+
+# Definitions
+
+let comp f g x = f (g x)
+
+let rec map f l =
+  match l with [] -> [] | h :: t -> f h :: map f t
+
+
+
+Generalized statement (*) (if necessary): map (comp f g) l   =   comp (map f) (map g) l
+---
+Base Case:
+Statement being proven in base case: map (comp f g) []   =   comp (map f) (map g) []
+Proof of base case:
+
+
+                map (comp f g) []
+(map)           = match [] with [] -> [] | h :: t -> (comp f g) h :: map (comp f g) t
+(match)         = []
+                
+(match)         = []
+(map)           = match [] with [] -> [] | h :: t -> f h :: map f t
+(match)         = (map f) []
+(map)           = (map f) (match [] with [] -> [] | h :: t -> g h :: map g t)
+(comp)          = (map f) (map g [])
+                = comp (map f) (map g) []
+
+
+---
+Inductive Step:
+Induction hypothesis (or hypotheses): map (comp f g) l   =   comp (map f) (map g) l
+Statement being proved in inductive step: map (comp f g) (x::l)   =   comp (map f) (map g) (x::l)
+Proof of inductive step:
+
+				map (comp f g) (x::l)
+(map)           = match (x::l) with [] -> [] | h :: t -> (comp f g) h :: map (comp f g) t
+(match)         = (comp f g) x :: map (comp f g) l
+(I.H)           = (comp f g) x :: comp (map f) (map g) l
+(comp)          = f (g x) :: comp (map f) (map g) l
+(comp)          = f (g x) :: (map f) (map g l)
+(brackets)      = f (g x) :: map f (map g l)
+
+(match)         = f (g x) :: map f (map g l)
+(map)           = match (g x :: map g l) with [] -> [] | h :: t -> f h :: map f t
+(match)         = (map f) (g x :: map g l)
+(map)           = (map f) (match (x::l) with [] -> [] | h :: t -> g h :: map g t)
+(comp)          = (map f) (map g (x::l))
+                = comp (map f) (map g) (x::l)
+
+
+
+---
+Instantiation of generalization (if necessary):
+            (Not necessary)
+            
+---
+QED

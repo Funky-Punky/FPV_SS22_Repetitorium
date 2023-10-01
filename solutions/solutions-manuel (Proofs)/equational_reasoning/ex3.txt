@@ -1,0 +1,49 @@
+# To Proof: fold_right (fun e a -> g e :: a) l [] = map g l
+
+
+## Definitions
+
+let rec fold_right f l acc =
+  match l with [] -> acc | h :: t -> f h (fold_right f t acc)
+
+let rec map f l =
+  match l with [] -> [] | h :: t -> f h :: map f t
+
+
+Generalized statement (*) (if necessary): fold_right (fun e a -> g e :: a) l [] = map g l
+---
+Base Case:
+Statement being proven in base case: fold_right (fun e a -> g e :: a) [] [] = map g []
+Proof of base case:
+
+                fold_right (fun e a -> g e :: a) [] []
+(fold_right)    = match [] with [] -> [] | h :: t -> (fun e a -> g e :: a) h (fold_right (fun e a -> g e :: a) t [])
+(match)         = []
+            
+(match)         = []  
+(map)           = match [] with [] -> [] | h :: t -> g h :: map g t
+                = map g []
+
+
+---
+Inductive Step:
+Induction hypothesis (or hypotheses): fold_right (fun e a -> g e :: a) l [] = map g l
+Statement being proved in inductive step: fold_right (fun e a -> g e :: a) (x::l) [] = map g (x::l)
+Proof of inductive step:
+
+                fold_right (fun e a -> g e :: a) (x::l) [] 
+(fold_right)	= match (x::l) with [] -> []  | h :: t -> (fun e a -> g e :: a) h (fold_right (fun e a -> g e :: a) t [] )
+(match)			= (fun e a -> g e :: a) x (fold_right (fun e a -> g e :: a) l [] )
+(fun)			= g x :: (fold_right (fun e a -> g e :: a) l [])
+(I.H)			= g x :: map g l
+
+(match)			= g x :: map g l
+(map)			= match (x::l) with [] -> [] | h :: t -> g h :: map g t
+				= map g (x::l)
+
+---
+Instantiation of generalization (if necessary):
+				(Not needed in this case)
+
+---
+QED

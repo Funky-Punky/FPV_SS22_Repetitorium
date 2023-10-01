@@ -1,0 +1,103 @@
+# To Proof: fold_left (fun a e -> app a [g e]) [] l = map g l
+
+# Definitions
+
+let rec fold_left f acc l =
+  match l with [] -> acc | h :: t -> fold_left f (f acc h) t
+
+let app l1 l2 = 
+    match l1 with [] -> l2 | h :: t -> h :: app t l2
+
+let rec map f l =
+  match l with [] -> [] | h :: t -> f h :: map f t
+
+
+
+
+
+----------------------------------------
+Lemma 1: (app acc [g x]) :: map g l = acc :: g x :: map g l
+
+Generalized statement (*) (if necessary): (app acc [g x]) :: map g l = acc :: g x :: map g l
+---
+Base Case:
+Statement being proven in base case: (app [] [g x]) :: map g l = [] :: g x :: map g l
+Proof of base case:
+
+                (app [] [g x]) :: map g l
+(app)           = (match [] with [] -> [g x] | h :: t -> h :: app t [g x])
+(match)         = [g x]
+
+(::)            = [g x]
+(::)            = [] :: [g x]
+(match)         = [] :: g x :: []
+(map)           = [] :: g x :: match [] with [] -> [] | h :: t -> g h :: map g t
+                = [] :: g x :: map g []
+
+
+---
+Inductive Step:
+Induction hypothesis (or hypotheses): (app acc [g x]) :: map g l = acc :: g x :: map g l
+Statement being proved in inductive step: (app (a :: acc) [g x]) :: map g l = a :: acc :: g x :: map g l
+Proof of inductive step:
+
+                (app (a :: acc) [g x]) :: map g l
+(app)           = (match (a :: acc) with [] -> [g x] | h :: t -> h :: app t [g x]) :: map g l
+(match)         = (a :: app acc [g x]) :: map g l
+(I.H)           = a :: acc :: g x :: map g l
+
+                = a :: acc :: g x :: map g l
+
+QED
+End of Lemma 1
+----------------------------------------
+
+
+
+
+Generalized statement (*) (if necessary): fold_left (fun a e -> app a [g e]) acc l = acc :: map g l
+---
+Base Case:
+Statement being proven in base case: fold_left (fun a e -> app a [g e]) acc [] = acc :: map g []
+Proof of base case:
+
+
+                fold_left (fun a e -> app a [g e]) acc []
+(fold_left)     = match [] with [] -> acc | h :: t -> fold_left (fun a e -> app a [g e]) ((fun a e -> app a [g e]) acc h) t
+(match)         = acc   
+
+(::)            = acc    
+(match)         = acc :: []
+(map)           = acc :: match [] with [] -> [] | h :: t -> g h :: map g t
+                = acc :: map g []
+
+
+---
+Inductive Step:
+Induction hypothesis (or hypotheses): fold_left (fun a e -> app a [g e]) acc l = acc :: map g l
+Statement being proved in inductive step: fold_left (fun a e -> app a [g e]) acc (x::l) = acc :: map g (x::l)
+Proof of inductive step:
+
+				fold_left (fun a e -> app a [g e]) acc (x::l)
+(fold_left)     = match (x::l) with [] -> acc | h :: t -> fold_left (fun a e -> app a [g e]) ((fun a e -> app a [g e]) acc h) t
+(match)         = fold_left (fun a e -> app a [g e]) ((fun a e -> app a [g e]) acc x) l
+(fun)           = fold_left (fun a e -> app a [g e]) (app acc [g x]) l
+(I.H)           = (app acc [g x]) :: map g l
+(Lemma 1)       = acc :: g x :: map g l
+                
+(match)         = acc :: g x :: map g l
+(map)           = acc :: match (x::l) with [] -> [] | h :: t -> g h :: map g t
+                = acc :: map g (x::l)
+
+
+
+---
+Instantiation of generalization (if necessary):
+            fold_left (fun a e -> app a [g e]) [] l
+(1)         = [] :: map g l
+(::)        = map g l
+            
+            = map g l
+            
+---
+QED
