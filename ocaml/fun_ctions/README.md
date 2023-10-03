@@ -1,6 +1,9 @@
 # Fun(ctions)
+
 ## Partial Application
+
 ### Parameter order
+
 Try and write the desired function using the provided function as concisely as possible. Then, you may re-order the provided function's parameters and adapt your own implementations to (ideally) make them even more consise. What do you notice?
 
 ```ocaml
@@ -21,6 +24,7 @@ let sum = failwith "TODO: Compute the sum of all elements in the list"
 2. Implement the following function without explicitly accepting all the arguments. You may change the order of the arguments, if it seems helpful. However, make sure to not change the return type! `val pipe_many : 'a -> ('a -> 'a) list -> 'a`
 
 ## Lazy evaluation
+
 1. After we discuss a suitable type for infinite lists in class, implement these functions in the corresponding folder (./lazy_evaluation)
    1. integers - creates an infinite list of ascending integers starting at some n
    2. take - takes the first n elements out of an infinite lists and puts them into a normal list
@@ -33,9 +37,13 @@ let sum = failwith "TODO: Compute the sum of all elements in the list"
    3. Implement combine, which takes to lazies and combines them to a lazy of the tuple of their results
 
 ## Tail recursion
-1. Pull the newest version of the repository and check out our recursive list functions. Make them all tail-recursive
+
+> In order to properly test tail recursiveness, you must run these tests with `OCAMLRUNPARAM=l=8000 dune test`
+
+1. Pull the newest version of the repository and check out our recursive list functions (not the ones using `fold_left`). Make them all tail-recursive
 2. Take a look at the BST implementations. Re-implement inorder, preorder, postorder, and height to be tail-recursive
 3. Implement [Dijkstra's algorithm](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm) tailrecursively
+
    ```ocaml
    type node = int
    type weight = int
@@ -44,4 +52,5 @@ let sum = failwith "TODO: Compute the sum of all elements in the list"
 
    val dijkstra : graph -> edge list
    ```
+
 4. Implement `sum` and `insert` tailrecursively for BSTs
