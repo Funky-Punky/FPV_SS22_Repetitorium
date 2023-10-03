@@ -27,20 +27,9 @@ let rec delete n = function
         let new_v = get_max l in
         Node (delete new_v l, new_v, r)
 
-let height tree =
-  let rec impl curr_node curr_max curr_height stack =
-    match curr_node with
-    | Leaf -> (
-        match stack with
-        | [] -> curr_max
-        | (x, h) :: stack -> impl x curr_max h stack)
-    | Node (l, _, r) ->
-        impl l
-          (Int.max (curr_height + 1) curr_max)
-          (curr_height + 1)
-          ((r, curr_height + 1) :: stack)
-  in
-  impl tree 0 0 []
+let rec height = function
+  | Leaf -> 0
+  | Node (l, _, r) -> 1 + Int.max (height l) (height r)
 
 let rec inorder = function
   | Leaf -> []
@@ -62,17 +51,7 @@ let rec length = function
   | Leaf -> 0
   | Node (l, _, r) -> 1 + length l + length r
 
-let sum t =
-  let rec aux acc todo =
-    match todo with
-    | [] -> acc
-    | x :: xs -> (
-        match x with
-        | Leaf -> aux acc xs
-        | Node (l, v, r) -> aux (acc + v) (l :: r :: xs))
-  in
-  aux 0 [ t ]
-
+let rec sum = function Leaf -> 0 | Node (l, v, r) -> v + sum l + sum r
 let rec prod = function Leaf -> 1 | Node (l, v, r) -> v * prod l * prod r
 
 let rec map f = function
