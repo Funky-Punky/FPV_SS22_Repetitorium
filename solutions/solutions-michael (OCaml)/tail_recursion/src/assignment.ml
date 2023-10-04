@@ -77,7 +77,13 @@ let preorder t =
   in
   rev @@ aux [] [] t
 
-let postorder _ = failwith "TODO"
+let postorder =
+  let rec impl todo acc = function
+    | Leaf -> (
+        match todo with [] -> acc | node :: todo -> impl todo acc node)
+    | Node (l, v, r) -> impl (l :: todo) (v :: acc) r
+  in
+  impl [] []
 
 (* Dijkstra *)
 type node = int
