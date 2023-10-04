@@ -51,8 +51,6 @@ let list_tailrecursiveness_tests =
   (* Arbitrary *)
   let long_list = List.init 10_001 @@ Fun.const 1 in
   let long_float_list = List.init 10_001 @@ Fun.const 1. in
-  (* Not actual BST, but good enough for TR tests *)
-  let large_tree = create_tree_of_depth 13 in
   "List functions - tailrecursiveness"
   >::: [
          ("length should be TR" >:: fun _ -> length long_list |> ignore);
@@ -67,12 +65,6 @@ let list_tailrecursiveness_tests =
          ( "sum_float should be TR" >:: fun _ ->
            sum_float long_float_list |> ignore );
          ("prod_int should be TR" >:: fun _ -> prod_int long_list |> ignore);
-         ("height should be TR" >:: fun _ -> height large_tree |> ignore);
-         ("inorder should be TR" >:: fun _ -> inorder large_tree |> ignore);
-         ("preorder should be TR" >:: fun _ -> preorder large_tree |> ignore);
-         ("postorder should be TR" >:: fun _ -> postorder large_tree |> ignore);
-         ("sum should be TR" >:: fun _ -> sum large_tree |> ignore);
-         ("insert should be TR" >:: fun _ -> insert 0 large_tree |> ignore);
        ]
 
 let bst_tests =
@@ -127,6 +119,19 @@ let bst_tests =
            @@ insert 4 (Node (Leaf, 3, Node (Leaf, 5, Leaf))) );
        ]
 
+let bst_tailrecursiveness_tests =
+  (* Not actual BST, but good enough for TR tests *)
+  let large_tree = create_tree_of_depth 13 in
+  "List functions - tailrecursiveness"
+  >::: [
+         ("height should be TR" >:: fun _ -> height large_tree |> ignore);
+         ("inorder should be TR" >:: fun _ -> inorder large_tree |> ignore);
+         ("preorder should be TR" >:: fun _ -> preorder large_tree |> ignore);
+         ("postorder should be TR" >:: fun _ -> postorder large_tree |> ignore);
+         ("sum should be TR" >:: fun _ -> sum large_tree |> ignore);
+         ("insert should be TR" >:: fun _ -> insert 0 large_tree |> ignore);
+       ]
+
 let tests =
   "Tail Recursion"
   >::: [
@@ -139,6 +144,7 @@ let tests =
          list_functionality_tests;
          list_tailrecursiveness_tests;
          bst_tests;
+         bst_tailrecursiveness_tests;
        ]
 
 let _ = run_test_tt_main tests

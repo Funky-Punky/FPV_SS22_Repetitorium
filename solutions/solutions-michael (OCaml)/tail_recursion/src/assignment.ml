@@ -85,14 +85,6 @@ let postorder =
   in
   impl [] []
 
-(* Dijkstra *)
-type node = int
-type weight = int
-type edge = node * weight * node
-type graph = edge list
-
-let dijkstra _ = failwith "TODO"
-
 (* BST *)
 let sum t =
   let rec aux acc = function
