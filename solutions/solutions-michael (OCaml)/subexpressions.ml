@@ -9,10 +9,7 @@ let foo = ("bar");;
 (* Remember: foo is now a string! *)
 (                        print_endline          : string -> unit);;
 (                                        foo    : string        );;
-(           ("bar")                             : string        );;
-(                       (print_endline)         : string -> unit);;
-(                                       (foo)   : string        );;
-(                       (print_endline) (foo)   : unit          );;
+(                        print_endline   foo    : unit          );;
 (                      ((print_endline) (foo))  : unit          );;
 ((let foo = ("bar") in ((print_endline) (foo))) : unit          );;
 
