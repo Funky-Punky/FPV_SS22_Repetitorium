@@ -1,0 +1,5 @@
+(library
+ (name libBstCollection)
+ (libraries common libFoldable libCollection)
+ (flags
+  (:standard -warn-error -33)))
