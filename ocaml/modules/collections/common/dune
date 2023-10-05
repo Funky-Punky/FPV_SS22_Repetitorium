@@ -1,0 +1,4 @@
+(library
+ (name common)
+ (flags
+  (:standard -w -27-33-34-37-39)))
