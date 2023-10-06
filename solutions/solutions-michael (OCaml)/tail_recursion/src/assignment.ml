@@ -77,15 +77,13 @@ let preorder t =
   in
   rev @@ aux [] [] t
 
-let postorder _ = failwith "TODO"
-
-(* Dijkstra *)
-type node = int
-type weight = int
-type edge = node * weight * node
-type graph = edge list
-
-let dijkstra _ = failwith "TODO"
+let postorder =
+  let rec impl todo acc = function
+    | Leaf -> (
+        match todo with [] -> acc | node :: todo -> impl todo acc node)
+    | Node (l, v, r) -> impl (l :: todo) (v :: acc) r
+  in
+  impl [] []
 
 (* BST *)
 let sum t =

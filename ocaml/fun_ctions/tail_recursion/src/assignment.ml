@@ -16,14 +16,6 @@ let inorder _ = failwith "TODO"
 let preorder _ = failwith "TODO"
 let postorder _ = failwith "TODO"
 
-(* Dijkstra *)
-type node = int
-type weight = int
-type edge = node * weight * node
-type graph = edge list
-
-let dijkstra _ = failwith "TODO"
-
 (* BST *)
 let sum _ = failwith "TODO"
 let insert _ = failwith "TODO"

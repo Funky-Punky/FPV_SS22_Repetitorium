@@ -42,15 +42,4 @@ let sum = failwith "TODO: Compute the sum of all elements in the list"
 
 1. Pull the newest version of the repository and check out our recursive list functions (not the ones using `fold_left`). Make them all tail-recursive
 2. Take a look at the BST implementations. Re-implement inorder, preorder, postorder, and height to be tail-recursive
-3. Implement [Dijkstra's algorithm](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm) tailrecursively
-
-   ```ocaml
-   type node = int
-   type weight = int
-   type edge = node * weight * node
-   type graph = edge list
-
-   val dijkstra : graph -> edge list
-   ```
-
-4. Implement `sum` and `insert` tailrecursively for BSTs
+3. Implement `sum` and `insert` tailrecursively for BSTs
