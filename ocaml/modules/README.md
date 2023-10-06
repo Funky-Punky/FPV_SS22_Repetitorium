@@ -3,7 +3,7 @@
 Over the past few days, you have gotten to know a couple of collections. Today, we will make them a bit more organized!
 
 1. Foldable\
-Define a module type `Foldable` that requires an implementation type t and a `fold_left` function with the same signature we are used to.
+Take a look at and understand the module type `Foldable` that requires an implementation type t and a `fold_left` function with the same signature we are used to.
   - `type 'a t` that defines how the foldable (the collection) is typed
   - `empty : 'a t` is the empty collection
   - `insert : 'a -> 'a t -> 'a t` inserts an element into the collection
