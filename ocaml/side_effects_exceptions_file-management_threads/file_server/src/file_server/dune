@@ -1,5 +1,5 @@
 (library
  (name libFileServer)
-  (libraries threads libCommon libFileSystem)
+ (libraries threads libCommon libFileSystem)
  (flags
-  (:standard -warn-error -27-33)))
+  (:standard -warn-error -27-33-34-37-39)))
