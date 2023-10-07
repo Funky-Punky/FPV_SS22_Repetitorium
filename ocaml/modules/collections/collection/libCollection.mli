@@ -11,5 +11,5 @@ module type Collection = sig
   val iter : ('a -> unit) -> 'a t -> unit
 end
 
-module TODO_Collection : Collection
+module PlaceholderCollection : Collection
 module CollectionFromFoldable (F : Foldable) : Collection

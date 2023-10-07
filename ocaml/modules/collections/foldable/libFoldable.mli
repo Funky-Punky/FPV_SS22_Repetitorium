@@ -6,4 +6,4 @@ module type Foldable = sig
   val fold_left : ('a -> 'b -> 'a) -> 'a -> 'b t -> 'a
 end
 
-module TODO_Foldable : Foldable
+module PlaceholderFoldable : Foldable
