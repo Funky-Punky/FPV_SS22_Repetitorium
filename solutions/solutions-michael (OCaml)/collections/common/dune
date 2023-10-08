@@ -1,0 +1,4 @@
+(library
+ (name common)
+ (flags
+  (:standard -warn-error -33)))

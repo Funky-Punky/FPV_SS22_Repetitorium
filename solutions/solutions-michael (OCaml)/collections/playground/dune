@@ -1,0 +1,6 @@
+(library
+ (name playground)
+ (libraries common libFoldable libCollection libListCollection
+   libBstCollection libMap)
+ (flags
+  (:standard -warn-error -33)))

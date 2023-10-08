@@ -1,5 +1,6 @@
 type bst = Leaf | Node of bst * int * bst
 
+<<<<<<< HEAD
 let rec insert n tree = match tree with
   |Leaf -> Leaf
   |Node(l,v,r) -> if v > n then Node(insert n l, v, r)
@@ -99,11 +100,39 @@ let rec get_max = function
   | Node (_, v, r) -> if r = Leaf then v else get_max r
 
 let rec delete n = function
+=======
+let rec insert n t =
+  match t with
+  | Leaf -> Node (Leaf, n, Leaf)
+  | Node (l, v, r) as node ->
+      if n > v then Node (l, v, insert n r)
+      else if n < v then Node (insert n l, v, r)
+      else node
+
+let rec contains n t =
+  match t with
+  | Leaf -> false
+  | Node (l, v, r) ->
+      if n > v then contains n r else if n < v then contains n l else true
+
+let rec delete_max t =
+  match t with
+  (* return (t, max) *)
+  | Leaf -> failwith "shouldn't be possible"
+  | Node (l, v, Leaf) -> (l, v)
+  | Node (l, v, r) ->
+      let new_r, max = delete_max r in
+      (Node (l, v, new_r), max)
+
+let rec delete n t =
+  match t with
+>>>>>>> 99140c8a78526803e0c0680a2a6f4c3b2b216592
   | Leaf -> Leaf
   | Node (l, v, r) ->
       if n < v then Node (delete n l, v, r)
       else if n > v then Node (l, v, delete n r)
       else if l = Leaf then r
+<<<<<<< HEAD
       else
         let new_v = get_max l in
         Node (delete new_v l, new_v, r)
@@ -117,10 +146,17 @@ let rec delete n = function
       else
         let new_v = get_max l in
         Node (delete new_v l, new_v, r)
+=======
+      else if r = Leaf then l
+      else
+        let new_l, max = delete_max l in
+        Node (new_l, max, r)
+>>>>>>> 99140c8a78526803e0c0680a2a6f4c3b2b216592
 
 let rec height = function
   | Leaf -> 0
   | Node (l, _, r) -> 1 + Int.max (height l) (height r)
+<<<<<<< HEAD
 (*adjusted tail-recursive*)
 let height2 = 
   let rec height' acc = function
@@ -157,10 +193,21 @@ let preorder2 tree =
             |node::todo -> helper acc todo node)
   | Node (l, v, r) -> helper (v::acc) (l::todo) r
   in helper [] [] tree 
+=======
+
+let rec inorder = function
+  | Leaf -> []
+  | Node (l, v, r) -> inorder l @ (v :: inorder r)
+
+let rec preorder = function
+  | Leaf -> []
+  | Node (l, v, r) -> (v :: preorder l) @ preorder r
+>>>>>>> 99140c8a78526803e0c0680a2a6f4c3b2b216592
 
 let rec postorder = function
   | Leaf -> []
   | Node (l, v, r) -> postorder l @ postorder r @ [ v ]
+<<<<<<< HEAD
 (*adjusted tail-recursive*)
 let postorder2 tree = 
   let rec helper acc todo tree =
@@ -170,10 +217,13 @@ let postorder2 tree =
             |node::todo -> helper acc todo node)
   | Node (l, v, r) -> helper (v::acc) (l::todo) r
   in helper [] [] tree 
+=======
+>>>>>>> 99140c8a78526803e0c0680a2a6f4c3b2b216592
 
 let rec mirror = function
   | Leaf -> Leaf
   | Node (l, v, r) -> Node (mirror r, v, mirror l)
+<<<<<<< HEAD
 (*not yet tail-recursive*)
 let mirror2 = 
   let rec mirror' acc = function
@@ -219,6 +269,16 @@ let rec map f = function
   | Leaf -> Leaf
   | Node (l, v, r) -> Node (map f l, f v, map f r)
 (*TO-DO*)
+=======
+
+let rec length = function
+  | Leaf -> 0
+  | Node (l, _, r) -> 1 + length l + length r
+
+let rec sum = function Leaf -> 0 | Node (l, v, r) -> sum l + sum r + v
+let rec prod = function Leaf -> 0 | Node (l, v, r) -> prod l * prod r * v
+
+>>>>>>> 99140c8a78526803e0c0680a2a6f4c3b2b216592
 let rec map f = function
   | Leaf -> Leaf
   | Node (l, v, r) -> Node (map f l, f v, map f r)
@@ -229,6 +289,7 @@ let rec fold_left f acc = function
       let left_acc = fold_left f acc l in
       let curr_acc = f left_acc v in
       fold_left f curr_acc r
+<<<<<<< HEAD
 (*already tail-recursive*)
 let rec fold_left f acc = function
   | Leaf -> acc
@@ -304,3 +365,19 @@ let init length generator =
     else helper generator (index+1) (generator index :: acc)
   in helper generator 0 []
 
+=======
+
+let rec filter pred = function
+  | Leaf -> Leaf
+  | Node (l, v, r) as node ->
+      if pred v then Node (filter pred l, v, filter pred r)
+      else filter pred @@ delete v node
+
+let partition pred t = (filter pred t, filter (Fun.negate pred) t)
+
+let partition pred t =
+  fold_left
+    (fun (yes, no) x ->
+      if pred x then (insert x yes, no) else (yes, insert x no))
+    (Leaf, Leaf) t
+>>>>>>> 99140c8a78526803e0c0680a2a6f4c3b2b216592

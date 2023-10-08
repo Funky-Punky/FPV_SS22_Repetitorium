@@ -16,14 +16,6 @@ val inorder : bst -> int list
 val preorder : bst -> int list
 val postorder : bst -> int list
 
-(* Dijkstra *)
-type node = int
-type weight = int
-type edge = node * weight * node
-type graph = edge list
-
-val dijkstra : graph -> edge list
-
 (* BST *)
 val sum : bst -> int
 val insert : int -> bst -> bst
