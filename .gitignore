@@ -27,3 +27,6 @@ setup.log
 
 # Local OPAM switch
 _opam/
+
+# FPV exam files - may not be shared publicly
+exam/
