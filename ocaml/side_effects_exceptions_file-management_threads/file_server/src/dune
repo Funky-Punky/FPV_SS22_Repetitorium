@@ -1,5 +1,5 @@
 (library
  (name assignment)
-  (libraries threads)
+ (libraries threads)
  (flags
-  (:standard -warn-error -27-33)))
+  (:standard -warn-error -27-33-34-37-39)))

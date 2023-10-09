@@ -10,5 +10,5 @@ module type Map = sig
   val contains : 'k -> ('k, 'v) t -> bool
 end
 
-module TODO_Map : Map
+module PlaceholderMap : Map
 module MapFromCollection (C : Collection) : Map
