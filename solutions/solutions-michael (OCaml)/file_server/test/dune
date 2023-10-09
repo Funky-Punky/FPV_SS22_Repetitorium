@@ -1,3 +1,5 @@
 (test
  (name test)
- (libraries libFileSystem libFileServer libCommon ounit2 ))
+ (libraries libFileSystem libFileServer libCommon ounit2)
+ (flags
+  (:standard -warn-error -27-33-34-37-39)))
