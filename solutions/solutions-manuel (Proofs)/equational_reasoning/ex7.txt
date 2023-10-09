@@ -1,0 +1,71 @@
+# To Proof: facc n = fac n
+
+
+## Definitions
+
+let rec fac n = if n < 1 then 1 else n * fac (n-1)
+
+let rec facc_help f n =
+    if n <= 0 then f 1
+    else facc_help (fun p -> f (n*p)) (n-1)
+
+let facc n = 
+    facc_help (fun x -> x) n
+
+
+----------------------------------------
+Lemma 1: facc_help (fun x -> x) n = fac n
+
+Generalized statement (*) (if necessary): facc_help (fun x -> acc * x) n = acc * fac n
+---
+Base Case:
+Statement being proven in base case: facc_help (fun x -> acc * x) 0 = acc * fac 0
+Proof of base case:
+
+                facc_help (fun x -> acc * x) 0
+(facc_help)     = if 0 <= 0 then (fun x -> acc * x) 1 else facc_help (fun p -> (fun x -> acc * x) (0*p)) (0-1)
+(if)            = (fun x -> acc * x) 1
+(fun)           = acc * 1
+                
+(if)            = acc * 1
+(fac)           = acc * if 0 < 1 then 1 else 0 * fac (0-1)
+                = acc * fac 0
+
+
+---
+Inductive Step:
+Induction hypothesis (or hypotheses): facc_help (fun x -> acc * x) n = acc * fac n
+Statement being proved in inductive step: facc_help (fun x -> acc * x) (n + 1) = acc * fac (n + 1)
+Proof of inductive step:
+
+                facc_help (fun x -> acc * x) (n + 1)
+(facc_help)     = if (n + 1) <= 0 then (fun x -> acc * x) 1 else facc_help (fun p -> (fun x -> acc * x) ((n + 1)*p)) ((n + 1)-1)
+(if)            = facc_help (fun p -> (fun x -> acc * x) ((n + 1)*p)) ((n + 1)-1)
+(arith)         = facc_help (fun p -> (fun x -> acc * x) ((n + 1)*p)) n
+(fun)           = facc_help (fun p -> acc * (n + 1)*p) n
+(I.H)           = acc * (n + 1) * fac n
+                
+(arith)         = acc * (n + 1) * fac n
+(if)            = acc * (n + 1) * fac ((n + 1)-1)
+(fac)           = acc * (if (n + 1) < 1 then 1 else (n + 1) * fac ((n + 1)-1))
+                = acc * fac (n + 1)
+
+QED
+End of Lemma 1
+----------------------------------------
+
+
+
+
+
+Proof: facc n = fac n
+
+				facc n 
+(facc)		    = facc_help (fun x -> x) n
+(Lemma 1)       = fac n
+				
+				= fac n
+
+---
+QED
+

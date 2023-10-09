@@ -1,11 +1,10 @@
-# FPV_SS22_Repetitorium
+# FPV Repetitorium SoSe 2023
 
-Hello\
-Welcome to the Repo of the Repetitorium for FPV in SS22 at TUM!\
-Make yourself at home.\
-Exercises and Notes or Showcases of some assignments can be found in the subdirectories.
+Hello
 
-Some Solutions as well... but now all of them - you still need to do some things yourself.
+Welcome to the Repo of the Repetitorium for FPV in SoSe 23 at TUM!
 
-Have Fun\
-Michael and Jonas
+Exercises and Notes or Showcases of some assignments can be found in the subdirectories. There are also some sample solutions, but they are not complete and occacionally also incorrect. Mostly, the tasks are meant to be covered during the revision, so we recommend you wait until then before working on the tasks.
+
+See you at the revision!
+Manuel and Michael

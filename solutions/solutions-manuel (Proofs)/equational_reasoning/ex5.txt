@@ -1,0 +1,64 @@
+# To Proof: nlen n l = fold_left (+) 0 (map (fun _ -> n) l)
+
+# Definitions
+
+let rec nlen n l =
+  match l with [] -> 0 | h :: t -> n + nlen n t
+
+let rec fold_left f acc l =
+  match l with [] -> acc | h :: t -> fold_left f (f acc h) t
+
+let rec map f l =
+  match l with [] -> [] | h :: t -> f h :: map f t
+
+
+
+Generalized statement (*) (if necessary): acc + nlen n l = fold_left (+) acc (map (fun _ -> n) l)
+---
+Base Case:
+Statement being proven in base case: nlen n [] = fold_left (+) 0 (map (fun _ -> n) [])
+Proof of base case:
+
+
+                acc + nlen n []
+(nlen)			= acc + match [] with [] -> 0 | h :: t -> n + nlen n t
+(match)			= acc + 0
+(arith)			= acc
+                
+(match)			= acc
+(fold_left)		= match [] with [] -> acc | h :: t -> fold_left (+) ((+) acc h) t
+                = fold_left (+) acc (map (fun _ -> n) [])
+
+
+---
+Inductive Step:
+Induction hypothesis (or hypotheses): acc + nlen n l = fold_left (+) acc (map (fun _ -> n) l)
+Statement being proved in inductive step: acc + nlen n (x::l) = fold_left (+) acc (map (fun _ -> n) (x::l))
+Proof of inductive step:
+
+				acc + nlen n (x::l)
+(nlen)			= acc + match (x::l) with [] -> 0 | h :: t -> n + nlen n t
+(match)			= acc + n + nlen n l
+
+(I.H)			= acc + n + nlen n l
+((+))			= fold_left (+) (acc + n) (map (fun _ -> n) l)
+(match)			= fold_left (+) ((+) acc n) (map (fun _ -> n) l)
+(fun)			= match (n :: map (fun _ -> n) l) with [] -> acc | h :: t -> fold_left (+) ((+) acc h) t
+(match)			= match ((fun _ -> n) x :: map (fun _ -> n) l) with [] -> acc | h :: t -> fold_left (+) ((+) acc h) t
+(map)			= match (match (x::l) with [] -> [] | h :: t -> (fun _ -> n) h :: map (fun _ -> n) t) with [] -> acc | h :: t -> fold_left (+) ((+) acc h) t
+(fold_left)		= match (map (fun _ -> n) (x::l)) with [] -> acc | h :: t -> fold_left (+) ((+) acc h) t
+				= fold_left (+) acc (map (fun _ -> n) (x::l))
+
+
+
+---
+Instantiation of generalization (if necessary):
+
+                nlen n l 
+
+(arith)			= nlen n l
+(1)             = 0 + nlen n l
+                = fold_left (+) 0 (map (fun _ -> n) l)
+            
+---
+QED

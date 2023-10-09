@@ -6,7 +6,7 @@ Find all sub-expressions of these expressions and determine their types. Also de
     ```
 2. ```ocaml
    (((float_of_int) ((1) + (2))) *. (3.5))
-   ```
+    ```
 3. ```ocaml
    [2; 3] |> List.cons 1 |> List.map (( * ) 2) |> List.fold_left ( + ) 0
    List.fold_left ( + ) 0 (List.map (( * ) 2) (List.cons 1 [2; 3]))
@@ -17,3 +17,4 @@ Find all sub-expressions of these expressions and determine their types. Also de
     ```
 5. ```ocaml
    let y a b c = a c b in List.map (y (@@) [2; 3; 4]) [List.cons 1; (@) [0; 4]]
+    ```

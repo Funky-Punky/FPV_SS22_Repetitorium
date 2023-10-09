@@ -1,0 +1,53 @@
+# To Proof: fold_left (fun acc _ -> acc + 1) 0 l   =   len_tr 0 l
+
+# Definitions
+
+let rec fold_left f acc l =
+  match l with [] -> acc | h :: t -> fold_left f (f acc h) t
+
+let rec len_tr acc l = 
+  match l with [] -> acc | _ :: t -> len_tr (acc + 1) t
+
+
+Generalized statement (*) (if necessary): fold_left (fun acc _ -> acc + 1) a l   =   len_tr a l
+---
+Base Case:
+Statement being proven in base case: (fun acc _ -> acc + 1) a []   =   len_tr a []
+Proof of base case:
+
+
+                fold_left (fun acc _ -> acc + 1) a []
+(fold_left)     = match [] with [] -> a | h :: t -> fold_left (fun acc _ -> acc + 1) ((fun acc _ -> acc + 1) a h) t
+(match)         = a
+
+(match)         = a
+(len_tr)        = match [] with [] -> a | _ :: t -> len_tr (a + 1) t
+                = len_tr a []
+
+---
+Inductive Step:
+Induction hypothesis (or hypotheses): fold_left (fun acc _ -> acc + 1) a l = len_tr a l
+Statement being proved in inductive step: fold_left (fun acc _ -> acc + 1) a (x::l)   =   len_tr a (x::l)
+Proof of inductive step:
+
+                fold_left (fun acc _ -> acc + 1) a (x::l)
+(fold_left)     = match (x::l) with [] -> a | h :: t -> fold_left (fun acc _ -> acc + 1) ((fun acc _ -> acc + 1) a h) t
+(match)         = fold_left (fun acc _ -> acc + 1) ((fun acc _ -> acc + 1) a x) l
+(fun)           = fold_left (fun acc _ -> acc + 1) (a + 1) l
+(I.H)           = len_tr (a + 1) l
+            
+(match)         = len_tr (a + 1) l   
+(len_tr)        = match (x::l) with [] -> a | _ :: t -> len_tr (a + 1) t           
+                = len_tr a (x::l)
+
+
+---
+Instantiation of generalization (if necessary):
+
+                fold_left (fun acc _ -> acc + 1) 0 l
+(1)             = len_tr 0 l
+
+                = len_tr 0 l
+            
+---
+QED
